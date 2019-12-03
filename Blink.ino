@@ -33,7 +33,6 @@ void setup() {
 
   digitalWrite(LeftTurnOut, LOW);
   digitalWrite(RightTurnOut, LOW);
-  digitalWrite(LightOut, LOW);
   digitalWrite(HornOut, LOW);
   digitalWrite(RearLeftRedLightOut, HIGH);
   digitalWrite(RearRightRedLightOut, HIGH);
@@ -62,11 +61,13 @@ void loop() {
     blink(true);
   } else {
     digitalWrite(LeftTurnOut, LOW);
+    digitalWrite(RearLeftRedLightOut, HIGH);
   }
 
   if (RigthButtonState == HIGH) {
     blink(false);
   } else {
     digitalWrite(RightTurnOut, LOW);
+    digitalWrite(RearRightRedLightOut, HIGH);
   }
 }

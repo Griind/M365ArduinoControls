@@ -4,9 +4,9 @@ const int LeftTurnPinIn =  9;
 const int LeftTurnOut = 3;
 const int RightTurnPinIn =  10;
 const int RightTurnOut = 4; 
-const int RearRedLightPositiveOut = 5;
-const int LightPinIn =  11;
-const int LightOut = 5;
+const int RearLeftRedLightOut = 5;
+//const int LightPinIn =  11;
+const int RearRightRedLightOut = 6;
 const int HornPinIn =  12;
 const int HornOut = 2;
 
@@ -18,22 +18,25 @@ int LightButtonState = 0;
 int HornButtonState = 0;
 boolean blinkState = false;
 
-Metro blink1Metro = Metro(500);
+Metro blink1Metro = Metro(400);
 void setup() {
 
   pinMode(LeftTurnPinIn, INPUT);
   pinMode(LeftTurnOut, OUTPUT);
   pinMode(RightTurnPinIn, INPUT);
   pinMode(RightTurnOut, OUTPUT);
-  pinMode(LightPinIn, INPUT);
-  pinMode(LightOut, OUTPUT);
+  //pinMode(LightPinIn, INPUT);
   pinMode(HornPinIn, INPUT);
   pinMode(HornOut, OUTPUT);
+  pinMode(RearLeftRedLightOut, OUTPUT);
+  pinMode(RearRightRedLightOut, OUTPUT);
 
   digitalWrite(LeftTurnOut, LOW);
   digitalWrite(RightTurnOut, LOW);
   digitalWrite(LightOut, LOW);
   digitalWrite(HornOut, LOW);
+  digitalWrite(RearLeftRedLightOut, HIGH);
+  digitalWrite(RearRightRedLightOut, HIGH);
 
 }
 void blink(bool left) {
@@ -41,24 +44,18 @@ void blink(bool left) {
   {
     blinkState = !blinkState;
     digitalWrite(left ? LeftTurnOut : RightTurnOut, blinkState);
+    digitalWrite(left ? RearLeftRedLightOut : RearRightRedLightOut, !blinkState);
   }
 }
 void loop() {
   leftButtonState = digitalRead(LeftTurnPinIn);
   RigthButtonState = digitalRead(RightTurnPinIn);
-  LightButtonState = digitalRead(LightPinIn);
   HornButtonState = digitalRead(HornPinIn);
 
   if (HornButtonState == HIGH) {
     digitalWrite(HornOut, HIGH);
   } else {
     digitalWrite(HornOut, LOW);
-  }
-
-  if (LightButtonState == HIGH) {
-    digitalWrite(LightOut, HIGH);
-  } else {
-    digitalWrite(LightOut, LOW);
   }
 
   if (leftButtonState == HIGH) {

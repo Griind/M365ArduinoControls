@@ -18,7 +18,7 @@ int LightButtonState = 0;
 int HornButtonState = 0;
 boolean blinkState = false;
 
-Metro blink1Metro = Metro(400);
+Metro blink1Metro = Metro(200);
 void setup() {
 
   pinMode(LeftTurnPinIn, INPUT);
